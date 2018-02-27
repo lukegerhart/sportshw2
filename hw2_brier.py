@@ -63,4 +63,4 @@ for i in range(10):
 print("Uncertainty:", uncertainty)
 print("Resolution:", resolution)
 print("Reliability:", reliability)
-print("Brier Score:", reliability - resolution + uncertainty)
+print("Brier Score:", (reliability/num_games) - (resolution/num_games) + uncertainty)
