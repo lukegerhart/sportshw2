@@ -2,6 +2,17 @@ import csv
 
 games = []
 
+def calculate_accuracy(all_games):
+	correct = 0
+	for game in all_games:
+		if float(game[0]) > 0.5:
+			if int(game[1]) == 1:
+				#correct prediction
+				correct = correct + 1
+		else:
+			if int(game[1]) == 0:
+				correct = correct + 1
+	return correct/len(all_games)
 #Read custom csv file.
 #hw2dataformatted.csv is a subset of nfl_elo.csv
 #There are 2 columns: HomeWinProb, HomeTeamWon, where HomeTeamWon is 1 or 0
@@ -64,3 +75,4 @@ print("Uncertainty:", uncertainty)
 print("Resolution:", resolution)
 print("Reliability:", reliability)
 print("Brier Score:", (reliability/num_games) - (resolution/num_games) + uncertainty)
+print("Accuracy:", calculate_accuracy(games))
