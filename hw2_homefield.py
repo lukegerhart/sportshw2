@@ -2,7 +2,7 @@ import csv
 
 def find_homefield(margins, iters, initial):
 	alpha = 0
-	for counter in range(1, 10000):
+	for counter in range(1, iters):
 		i = counter % len(margins)
 		alpha = 2/counter
 		marg = margins[i]

@@ -16,7 +16,7 @@ def calculate_accuracy(all_games):
 #Read custom csv file.
 #hw2dataformatted.csv is a subset of nfl_elo.csv
 #There are 2 columns: HomeWinProb, HomeTeamWon, where HomeTeamWon is 1 or 0
-with open('hw2dataformatted.csv', newline='') as csvfile:
+with open('538data_condensed.csv', newline='') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',')
 	for row in reader:
 		games.append(row)
