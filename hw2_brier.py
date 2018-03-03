@@ -1,8 +1,11 @@
 import csv
+from matplotlib import pyplot
 
 games = []
 
 def calculate_accuracy(all_games):
+	if len(all_games) == 0:
+		return -1
 	correct = 0
 	for game in all_games:
 		if float(game[0]) > 0.5:
@@ -61,6 +64,7 @@ for i in range(10):
 
 #calculate reliability 
 reliability = 0
+avg_probs = [0 for z in range(10)]
 for i in range(10):
 	bin = bins[i]
 	if len(bin) == 0:
@@ -69,6 +73,7 @@ for i in range(10):
 	for game in bin:
 		prob = prob + float(game[0])
 	average_prob = prob/len(bin)
+	avg_probs[i] = average_prob
 	difference = average_prob - bin_rates[i]
 	reliability = reliability + (len(bin) * (difference ** 2))
 print("Uncertainty:", uncertainty)
@@ -76,3 +81,12 @@ print("Resolution:", resolution)
 print("Reliability:", reliability)
 print("Brier Score:", (reliability/num_games) - (resolution/num_games) + uncertainty)
 print("Accuracy:", calculate_accuracy(games))
+
+x = avg_probs
+y = bin_rates
+#y = [calculate_accuracy(a) for a in bins if len(a) is not 0]
+#print(y)
+pyplot.plot(x,y, '--bo')
+pyplot.ylabel('bin rates')
+pyplot.xlabel('average predicted probabilities')
+pyplot.show()
