@@ -1,6 +1,7 @@
 import os, csv, time, sys, numpy
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.externals import joblib
 base_dir = os.getcwd()
 
 def read_files(dir):
@@ -65,7 +66,8 @@ if len(sys.argv) == 1:
 elif sys.argv[1] == '-t':
 	#train
 	data = get_data()
-	train(data)
+	model = train(data)
+	joblib.dump(model, 'model.pkl')
 	#print(data[:,0][0:10])
 elif sys.argv[1] == '-p':
 	#predict
@@ -80,8 +82,9 @@ elif sys.argv[1] == '-p':
 	td = numpy.array(test_data).astype(float)
 	td = td.reshape(1, -1)
 	#numpy.reshape(td, (1, -1))
-	data = get_data()
-	logisticRegr = train(data)
+	#data = get_data()
+	#logisticRegr = train(data)
+	logisticRegr = joblib.load('model.pkl')
 	proba = logisticRegr.predict_proba(td)
 	print("Probability of Home Team winning: ", proba[0][1])
 	#log_proba = logisticRegr.predict_log_proba(td)
